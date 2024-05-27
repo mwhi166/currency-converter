@@ -1,0 +1,32 @@
+CURRENCIES = {
+    'USD': 1,
+    'EUR': 1.06,
+    'YEN': 0.0067,
+    'GBP': 1.23,
+    'AUD': 0.64,
+    'CAD': 0.74
+}
+
+def to_usd(currency, amount):
+    if amount < 0:
+        raise Exception("Invalid amount")
+    if currency not in CURRENCIES:
+        raise Exception(f"{currency} is not supported")
+    return amount * CURRENCIES[currency]
+
+def from_usd(currency, amount):
+    if currency not in CURRENCIES:
+        raise Exception(f"{currency} is not supported")
+    if amount < 0:
+        raise Exception("Invalid amount")
+    usd_amount = amount / CURRENCIES[currency]
+    return round(usd_amount, 4)
+
+def convert(from_currency, amount, to_currency):
+    try:
+        usd_amount = to_usd(from_currency, amount)
+        equivalent_amount = from_usd(to_currency, usd_amount)
+        print(f"{amount} {from_currency} is {equivalent_amount} {to_currency}")
+    except Exception as e:
+        print(e)
+  
